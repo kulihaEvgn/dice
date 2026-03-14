@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 type Serializer<T> = {
   read: (raw: string) => T;
@@ -44,13 +44,9 @@ const defaultSerializer = <T>(): Serializer<T> => ({
 export function useLocalStorageSync<T>(
   key: string,
   initial: T,
-  options: UseLocalStorageSyncOptions<T> = {}
+  options: UseLocalStorageSyncOptions<T> = {},
 ): UseLocalStorageSyncReturn<T> {
-  const {
-    serializer = defaultSerializer<T>(),
-    syncAcrossTabs = true,
-    onError,
-  } = options;
+  const { serializer = defaultSerializer<T>(), syncAcrossTabs = true, onError } = options;
 
   const [error, setError] = useState<Error | null>(null);
 
@@ -68,7 +64,7 @@ export function useLocalStorageSync<T>(
   // Intentionally NOT updating on every render — initial is a fallback, not reactive.
 
   const readFromStorage = useCallback((): T => {
-    if (typeof window === "undefined") return initialRef.current;
+    if (typeof window === 'undefined') return initialRef.current;
     try {
       const raw = window.localStorage.getItem(key);
       if (raw === null) return initialRef.current;
@@ -81,15 +77,14 @@ export function useLocalStorageSync<T>(
     }
   }, [key]); // ← only `key` is a real reactive dep here
 
-  const [value, setValueState] = useState<T>(readFromStorage);
+  // Инициализация всегда из initial — чтобы первый рендер на сервере и клиенте совпадал (SSR/hydration).
+  // После монтирования useEffect подставит значение из localStorage.
+  const [value, setValueState] = useState<T>(() => initialRef.current);
 
   const setValue = useCallback(
     (newValue: T | ((prev: T) => T)) => {
       setValueState((prev) => {
-        const next =
-          typeof newValue === "function"
-            ? (newValue as (prev: T) => T)(prev)
-            : newValue;
+        const next = typeof newValue === 'function' ? (newValue as (prev: T) => T)(prev) : newValue;
 
         try {
           window.localStorage.setItem(key, serializerRef.current.write(next));
@@ -103,7 +98,7 @@ export function useLocalStorageSync<T>(
         return next;
       });
     },
-    [key]
+    [key],
   );
 
   const removeValue = useCallback(() => {
@@ -125,7 +120,7 @@ export function useLocalStorageSync<T>(
 
   // Sync across browser tabs
   useEffect(() => {
-    if (!syncAcrossTabs || typeof window === "undefined") return;
+    if (!syncAcrossTabs || typeof window === 'undefined') return;
 
     const handler = (e: StorageEvent) => {
       if (e.key !== key) return;
@@ -145,8 +140,8 @@ export function useLocalStorageSync<T>(
       }
     };
 
-    window.addEventListener("storage", handler);
-    return () => window.removeEventListener("storage", handler);
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
   }, [key, syncAcrossTabs]); // ← onError и initial убраны из deps
 
   return { value, setValue, removeValue, error };

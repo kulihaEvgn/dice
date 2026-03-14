@@ -1,4 +1,4 @@
-import { IGameResult } from "@/shared";
+import { IGameResult } from '@/shared';
 
 export interface IDiceState {
   gameResults: IGameResult[];

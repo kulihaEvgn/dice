@@ -1,6 +1,5 @@
-import { Stack, Typography } from "@mui/material";
-import NumberFlow from '@number-flow/react'
-
+import { Stack, Typography, TypographyProps } from '@mui/material';
+import NumberFlow from '@number-flow/react';
 
 interface IProps {
   value: number;
@@ -9,32 +8,50 @@ interface IProps {
 
   onRollingStart?: () => void;
   onRollingFinish?: () => void;
+
+  width?: number | string;
+  height?: number | string;
+  typographyColor?: TypographyProps['color'];
+  typographyVariant?: TypographyProps['variant'];
+
+  animationDuration?: number;
+  animationIterations?: number;
 }
 
-export const Counter = ({ value, isRolling, onRollingStart, onRollingFinish }: IProps) => {
+export const Counter = ({
+  value,
+  isRolling,
+  onRollingStart,
+  onRollingFinish,
+  width,
+  height,
+  typographyVariant,
+  typographyColor,
+
+  animationDuration = 200,
+  animationIterations = 10,
+}: IProps) => {
   return (
     <Stack
       bgcolor={'rgba(0, 0, 0, 0.02)'}
       alignItems="center"
       justifyContent="center"
-      borderRadius={'20px'}
+      borderRadius={'10px'}
       boxShadow={'inset -10px -10px 5px -5px #00000030'}
-      width="320px"
-      height="320px"
+      width={width}
+      height={height}
       className={isRolling ? 'cube-animation' : ''}
     >
-      <Typography variant={'h1'}>
+      <Typography variant={typographyVariant} color={typographyColor}>
         <NumberFlow
           defaultValue={100}
           value={value}
-          spinTiming={{ duration: 200, iterations: 10 }}
+          spinTiming={{ duration: animationDuration, iterations: animationIterations }}
           trend={10}
           onAnimationsStart={onRollingStart}
           onAnimationsFinish={onRollingFinish}
-
         />
       </Typography>
-
     </Stack>
   );
 };
