@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google';
-import { Container } from '@mui/material';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import theme from '@/shared/theme';
 import './globals.css';
 import './animation.css';
-import { DiceProvider, ThemeProvider } from '@/shared';
 
 const roboto = Roboto_Flex({
   variable: '--font-roboto',
@@ -22,12 +22,11 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en">
       <body className={`${roboto.variable}`}>
         <AppRouterCacheProvider>
-          <ThemeProvider>
-            <DiceProvider>
-              <Container maxWidth="md" sx={{ height: '100%' }}>
-                {children}
-              </Container>
-            </DiceProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Container maxWidth="sm" sx={{ height: '100%' }}>
+              {children}
+            </Container>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

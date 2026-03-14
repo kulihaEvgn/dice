@@ -5,8 +5,7 @@ import { TransitionGroup } from 'react-transition-group';
 import { ListItem } from './ListItem';
 
 export const ResultList = () => {
-  const { gameResults } = useDice();
-  const results = gameResults ?? [];
+  const gameResults = useDice((state) => state.gameResults);
 
   return (
     <Stack
@@ -17,7 +16,7 @@ export const ResultList = () => {
     >
       <ListItem time={'Time'} guess={'Guess'} result={'Result'} isHeader />
       <TransitionGroup style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-        {results.map(({ time, result, guess, isWon }, idx) => (
+        {gameResults.map(({ time, result, guess, isWon }, idx) => (
           <Collapse key={`${time}-${idx}-${isWon}`}>
             <ListItem time={time} guess={guess} result={result} isWon={isWon} />
           </Collapse>

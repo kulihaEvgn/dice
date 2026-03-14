@@ -8,11 +8,11 @@ export const GameField = () => {
     alertType,
     alertMessage,
     setAlertType,
-    gameType,
-    setGameType,
-    sliderValue,
-    setSliderValue,
-    counterValue,
+    guessValue,
+    resultValue,
+    setGuessValue,
+    setGuessDirection,
+    guessDirection,
     handlePlay,
     onRollingStart,
     onRollingFinish,
@@ -23,7 +23,7 @@ export const GameField = () => {
       <Stack py={2} px={10} spacing={3} className={'slide-in-top-animation'}>
         <Flex alignItems="center" justifyContent="center">
           <Counter
-            value={counterValue}
+            value={resultValue}
             isRolling={isRolling}
             onRollingStart={onRollingStart}
             onRollingFinish={onRollingFinish}
@@ -35,13 +35,13 @@ export const GameField = () => {
 
         <Flex alignItems="center" justifyContent="center">
           <GameTypeButtons
-            selectedGameType={gameType}
-            setSelectedGameType={setGameType}
+            selectedGameType={guessDirection}
+            setSelectedGameType={setGuessDirection}
             disabled={isRolling}
           />
         </Flex>
 
-        <Slider value={sliderValue} onChange={setSliderValue} disabled={isRolling} />
+        <Slider value={guessValue} onChange={setGuessValue} disabled={isRolling} />
 
         <Button
           disabled={isRolling}
@@ -53,12 +53,14 @@ export const GameField = () => {
         </Button>
       </Stack>
 
-      <Alert
-        message={alertMessage}
-        type={alertType}
-        open={!!alertType}
-        onClose={() => setAlertType(null)}
-      />
+      {alertType && (
+        <Alert
+          message={alertMessage}
+          type={alertType}
+          open={!!alertType}
+          onClose={() => setAlertType(null)}
+        />
+      )}
     </>
   );
 };

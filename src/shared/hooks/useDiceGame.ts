@@ -34,18 +34,17 @@ const getAlertFailureMessage = (gameType: GameTypeE) => {
 };
 
 export const useDiceGame = () => {
-  const { setGameResults } = useDice();
+  const { setGameResults, setGuessDirection, guessDirection, setGuessValue, guessValue } =
+    useDice();
 
   const [alertType, setAlertType] = useState<AlertColor | null>(null);
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const [gameType, setGameType] = useState<GameTypeE>(GameTypeE.over);
-  const [sliderValue, setSliderValue] = useState<number>(0);
-  const [counterValue, setCounterValue] = useState(0);
   const [isRolling, setIsRolling] = useState(false);
+  const [resultValue, setResultValue] = useState<number>(0);
 
   const handlePlay = () => {
     const random = getRandomNumber();
-    setCounterValue(random);
+    setResultValue(random);
   };
 
   const onRollingStart = useCallback(() => {
@@ -57,17 +56,17 @@ export const useDiceGame = () => {
   const onRollingFinish = useCallback(() => {
     setIsRolling(false);
 
-    const result = getResult(gameType, sliderValue, counterValue);
+    const result = getResult(guessDirection, guessValue, resultValue);
 
     if (result.isWon) {
       setAlertType('success');
     } else {
       setAlertType('error');
-      setAlertMessage(getAlertFailureMessage(gameType));
+      setAlertMessage(getAlertFailureMessage(guessDirection));
     }
 
     setGameResults?.(result);
-  }, [gameType, sliderValue, counterValue, setGameResults]);
+  }, [guessDirection, guessValue, resultValue, setGameResults]);
 
   return {
     isRolling,
@@ -75,12 +74,12 @@ export const useDiceGame = () => {
     alertMessage,
     alertType,
     setAlertType,
-    gameType,
-    setGameType,
-    sliderValue,
-    setSliderValue,
-    counterValue,
-    setCounterValue,
+    guessDirection,
+    setGuessDirection,
+    guessValue,
+    setGuessValue,
+    resultValue,
+    setResultValue,
     handlePlay,
     onRollingStart,
     onRollingFinish,

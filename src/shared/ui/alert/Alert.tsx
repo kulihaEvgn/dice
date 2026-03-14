@@ -15,7 +15,7 @@ interface IProps {
   open: boolean;
   onClose?: () => void;
 
-  type: AlertColor | null;
+  type: AlertColor;
   message?: string;
 
   autoHideDuration?: number;
