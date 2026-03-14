@@ -1,7 +1,7 @@
 import { Slider as MuiSlider } from '@mui/material';
-import { ListItem } from '@/shared';
+import { IListItem } from '@/shared';
 
-const marks: ListItem<number>[] = [
+const marks: IListItem<number>[] = [
   { label: '0', value: 0 },
   { label: '', value: 20 },
   { label: '', value: 40 },

@@ -40,7 +40,7 @@ export const useDiceGame = () => {
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [gameType, setGameType] = useState<GameTypeE>(GameTypeE.over);
   const [sliderValue, setSliderValue] = useState<number>(0);
-  const [counterValue, setCounterValue] = useState(5);
+  const [counterValue, setCounterValue] = useState(0);
   const [isRolling, setIsRolling] = useState(false);
 
   const handlePlay = () => {
@@ -50,6 +50,8 @@ export const useDiceGame = () => {
 
   const onRollingStart = useCallback(() => {
     setIsRolling(true);
+    setAlertType(null);
+    setAlertMessage('');
   }, []);
 
   const onRollingFinish = useCallback(() => {

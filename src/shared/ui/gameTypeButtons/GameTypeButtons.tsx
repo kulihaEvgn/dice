@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
-import { GameTypeE, ListItem } from '@/shared/types';
+import { GameTypeE, IListItem } from '@/shared/types';
 
-const buttons: ListItem<GameTypeE>[] = [
+const buttons: IListItem<GameTypeE>[] = [
   { label: 'Under', value: GameTypeE.under },
   { label: 'Over', value: GameTypeE.over },
 ];

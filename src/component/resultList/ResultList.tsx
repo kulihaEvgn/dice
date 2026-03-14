@@ -1,54 +1,25 @@
 'use client';
-import { Collapse, Stack, Typography } from '@mui/material';
-import { Counter, Flex, useDice } from '@/shared';
+import { Collapse, Stack } from '@mui/material';
+import { useDice } from '@/shared';
 import { TransitionGroup } from 'react-transition-group';
 import { ListItem } from './ListItem';
-
-interface IResultItemProps {
-  result: string | number;
-  isWon?: boolean;
-}
-const ResultItem = ({ result, isWon }: IResultItemProps) => {
-  const getResultColor = () => {
-    if (isWon === true) return 'success';
-    return 'error';
-  };
-
-  return (
-    <Flex alignItems={'center'} spacing={1}>
-      <Counter
-        value={+result}
-        typographyColor={getResultColor()}
-        width={35}
-        height={35}
-        animationDuration={100}
-        animationIterations={1}
-      />
-    </Flex>
-  );
-};
 
 export const ResultList = () => {
   const { gameResults } = useDice();
   const results = gameResults ?? [];
 
   return (
-    <Stack spacing={1} className={'slide-in-left-animation'} px={2}>
-      <ListItem
-        time={'Time'}
-        guess={'Guess'}
-        result={<Typography variant={'h6'}>Result</Typography>}
-        isHeader
-      />
-      <TransitionGroup>
+    <Stack
+      className={'slide-in-left-animation'}
+      spacing={1}
+      p={2}
+      sx={{ boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)', borderRadius: '10px' }}
+    >
+      <ListItem time={'Time'} guess={'Guess'} result={'Result'} isHeader />
+      <TransitionGroup style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
         {results.map(({ time, result, guess, isWon }, idx) => (
-          <Collapse key={idx}>
-            <ListItem
-              time={time}
-              guess={guess}
-              result={<ResultItem result={result} isWon={isWon} />}
-              isWon={isWon}
-            />
+          <Collapse key={`${time}-${idx}-${isWon}`}>
+            <ListItem time={time} guess={guess} result={result} isWon={isWon} />
           </Collapse>
         ))}
       </TransitionGroup>

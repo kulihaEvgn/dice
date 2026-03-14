@@ -1,4 +1,4 @@
-export interface ListItem<
+export interface IListItem<
   V extends string | number = string,
   D extends Record<string, unknown> = Record<string, unknown>,
 > {

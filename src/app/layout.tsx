@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <AppRouterCacheProvider>
           <ThemeProvider>
             <DiceProvider>
-              <Container maxWidth="sm" sx={{ height: '100%' }}>
+              <Container maxWidth="md" sx={{ height: '100%' }}>
                 {children}
               </Container>
             </DiceProvider>
