@@ -4,4 +4,4 @@ export const getCurrentTime = () => {
   const seconds = new Date().getSeconds();
 
   return `${hours}:${minutes}:${seconds}`;
-}
+};

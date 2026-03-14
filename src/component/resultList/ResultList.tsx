@@ -1,47 +1,62 @@
-'use client'
-import { Collapse, Grid, Stack, Typography } from "@mui/material";
-import { useDice } from "@/shared";
-import { TransitionGroup } from "react-transition-group";
+'use client';
+import { Box, Collapse, Stack, Typography } from '@mui/material';
+import { Counter, Flex, useDice } from '@/shared';
+import { TransitionGroup } from 'react-transition-group';
+import { ListItem } from './ListItem';
 
-
-interface IListRowProps {
-  time: string;
-  guess: string | number;
+interface IResultItemProps {
   result: string | number;
   isWon?: boolean;
 }
+const ResultItem = ({ result, isWon }: IResultItemProps) => {
+  const getResultColor = () => {
+    if (isWon === true) return 'success';
+    return 'error';
+  };
 
-const ListRow = ({guess, result, time, isWon}: IListRowProps) => {
-  console.log('time', time)
   return (
-    <Grid
-      container
-      spacing={2}
-      columns={10}
-      p={1}
-      sx={({palette}) => ({borderBottom: `1px solid ${palette.divider}`})}>
-      <Grid size={3}><Typography variant='body2'>{time}</Typography></Grid>
-      <Grid size={4}><Typography variant='body2'>{guess}</Typography></Grid>
-      <Grid size={3}>
-        <Typography variant='body2' color={isWon === undefined ? 'inherit' : isWon ? 'success' : 'error'}>
-          {result}
-        </Typography></Grid>
-    </Grid>
-  )
-}
-
+    <Flex alignItems={'center'} justifyContent={'start'} spacing={1}>
+      <Counter
+        value={+result}
+        typographyColor={getResultColor()}
+        width={40}
+        height={40}
+        animationDuration={200}
+        animationIterations={1}
+      />
+      {/*<Box*/}
+      {/*  sx={({ palette }) => ({*/}
+      {/*    width: 16,*/}
+      {/*    height: 16,*/}
+      {/*    backgroundColor: palette[getResultColor()].main,*/}
+      {/*    borderRadius: '50%',*/}
+      {/*  })}*/}
+      {/*/>*/}
+    </Flex>
+  );
+};
 
 export const ResultList = () => {
-  const {gameResults} = useDice();
+  const { gameResults } = useDice();
   const results = gameResults ?? [];
 
   return (
-    <Stack spacing={1} className={"slide-in-left-animation"} px={2}>
-      <ListRow time={'Time'} guess={'Guess'} result={'Result'}/>
+    <Stack spacing={1} className={'slide-in-left-animation'} px={2}>
+      <ListItem
+        time={'Time'}
+        guess={'Guess'}
+        result={<Typography variant={'h6'}>Result</Typography>}
+        isHeader
+      />
       <TransitionGroup>
-        {results.map(({time, result, guess, isWon}, idx) => (
+        {results.map(({ time, result, guess, isWon }, idx) => (
           <Collapse key={idx}>
-            <ListRow time={time} guess={guess} result={result} isWon={isWon}/>
+            <ListItem
+              time={time}
+              guess={guess}
+              result={<ResultItem result={result} isWon={isWon} />}
+              isWon={isWon}
+            />
           </Collapse>
         ))}
       </TransitionGroup>

@@ -1,18 +1,23 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
-import { GameTypeE, ListItem } from "@/shared/types";
+import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { GameTypeE, ListItem } from '@/shared/types';
 
 const buttons: ListItem<GameTypeE>[] = [
-  {label: 'Under', value: GameTypeE.under},
-  {label: 'Over', value: GameTypeE.over},
-]
+  { label: 'Under', value: GameTypeE.under },
+  { label: 'Over', value: GameTypeE.over },
+];
 
 interface IProps {
   selectedGameType: GameTypeE;
   setSelectedGameType: (selectedGameType: GameTypeE) => void;
+
+  disabled?: boolean;
 }
 
-
-export const GameTypeButtons = ({selectedGameType, setSelectedGameType}: IProps) => {
+export const GameTypeButtons = ({
+  selectedGameType,
+  setSelectedGameType,
+  disabled = false,
+}: IProps) => {
   return (
     <FormControl>
       <RadioGroup
@@ -20,16 +25,15 @@ export const GameTypeButtons = ({selectedGameType, setSelectedGameType}: IProps)
         value={selectedGameType}
         onChange={(event) => setSelectedGameType(event.target.value as GameTypeE)}
       >
-        {buttons.map(({value, label}) => (
+        {buttons.map(({ value, label }) => (
           <FormControlLabel
             key={value}
             value={value}
-            control={<Radio color={'secondary'} size={'medium'}/>}
+            control={<Radio color={'secondary'} size={'medium'} disabled={disabled} />}
             labelPlacement={'start'}
             label={<Typography>{label}</Typography>}
           />
         ))}
-
       </RadioGroup>
     </FormControl>
   );

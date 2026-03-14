@@ -1,5 +1,5 @@
 :root {
-  --background: #ffffff;
+  --background: #f4f4f4;
   --foreground: rgba(204, 0, 0, 0.87);
 }
 
@@ -15,8 +15,18 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-roboto) sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-image:
+    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  background-size: 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
+}

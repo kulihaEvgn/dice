@@ -1,16 +1,15 @@
-"use client"
-import { createContext, PropsWithChildren, useContext, useState } from "react"
-import { IDiceState, IGameResult, useLocalStorageSync } from "@/shared";
+'use client';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { IDiceState, IGameResult, useLocalStorageSync } from '@/shared';
 
-const DICE_STATE_KEY = "diceState";
+const DICE_STATE_KEY = 'diceState';
 
 const DiceContext = createContext<IDiceState>({
   gameResults: [],
-})
+});
 
-export const DiceProvider = ({children}: PropsWithChildren) => {
-
-  const { value, setValue } = useLocalStorageSync<IDiceState>(DICE_STATE_KEY, {gameResults: []})
+export const DiceProvider = ({ children }: PropsWithChildren) => {
+  const { value, setValue } = useLocalStorageSync<IDiceState>(DICE_STATE_KEY, { gameResults: [] });
 
   const setGameResults = (result: IGameResult) => {
     setValue((prev) => {
@@ -18,18 +17,16 @@ export const DiceProvider = ({children}: PropsWithChildren) => {
 
       return {
         ...prev,
-        gameResults: results.length < 10 ? [...results, result] : [result]
-      }
-
-    })
-  }
-
+        gameResults: results.length < 10 ? [result, ...results] : [result],
+      };
+    });
+  };
 
   return (
     <DiceContext.Provider value={{ gameResults: value.gameResults, setGameResults }}>
       {children}
     </DiceContext.Provider>
-  )
-}
+  );
+};
 
-export const useDice = () => useContext(DiceContext)
+export const useDice = () => useContext(DiceContext);
