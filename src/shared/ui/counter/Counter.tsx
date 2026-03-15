@@ -38,9 +38,13 @@ export const Counter = ({
       justifyContent="center"
       borderRadius={'10px'}
       boxShadow={'inset -10px -10px 5px -5px #00000030'}
+      // maxWidth={width}
       width={width}
+      // maxHeight={height}
       height={height}
       className={isRolling ? 'cube-animation' : ''}
+      sx={{ aspectRatio: '1 / 1' }}
+      overflow={'hidden'}
     >
       <Typography variant={typographyVariant} color={typographyColor}>
         <NumberFlow

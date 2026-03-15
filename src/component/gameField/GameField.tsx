@@ -27,8 +27,7 @@ export const GameField = () => {
             isRolling={isRolling}
             onRollingStart={onRollingStart}
             onRollingFinish={onRollingFinish}
-            width={320}
-            height={320}
+            width={'80%'}
             typographyVariant={'h1'}
           />
         </Flex>
