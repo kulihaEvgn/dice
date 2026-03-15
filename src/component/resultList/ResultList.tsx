@@ -17,7 +17,7 @@ export const ResultList = () => {
       <ListItem time={'Time'} guess={'Guess'} result={'Result'} isHeader />
       <TransitionGroup style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
         {gameResults.map(({ time, result, guess, isWon }, idx) => (
-          <Collapse key={`${time}-${idx}-${isWon}`}>
+          <Collapse orientation="vertical" key={`${time}-${idx}-${isWon}`}>
             <ListItem time={time} guess={guess} result={result} isWon={isWon} />
           </Collapse>
         ))}

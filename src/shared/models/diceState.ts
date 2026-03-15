@@ -13,7 +13,7 @@ export interface IDiceState {
   setGameResults: (result: IGameResult) => void;
 }
 
-const diceSlice: StateCreator<IDiceState> = (set, get) => ({
+const diceSlice: StateCreator<IDiceState> = (set) => ({
   guessValue: 0,
   setGuessValue: (value) => set({ guessValue: value }),
 
@@ -25,7 +25,7 @@ const diceSlice: StateCreator<IDiceState> = (set, get) => ({
     set((state) => {
       return {
         ...state,
-        gameResults: state.gameResults.length < 10 ? [result, ...state.gameResults] : [result],
+        gameResults: state.gameResults.length < 10 ? [...state.gameResults, result] : [result],
       };
     }),
 });

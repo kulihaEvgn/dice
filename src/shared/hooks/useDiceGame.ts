@@ -42,7 +42,7 @@ export const useDiceGame = () => {
   const [isRolling, setIsRolling] = useState(false);
   const [resultValue, setResultValue] = useState<number>(0);
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     const random = getRandomNumber();
     setResultValue(random);
   };
