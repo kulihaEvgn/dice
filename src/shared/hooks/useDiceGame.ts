@@ -8,7 +8,7 @@ import {
   useDice,
 } from '@/shared';
 import { AlertColor } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const checkIsWin = (gameType: GameTypeE, guessNumber: number, result: number): boolean => {
   if (gameType === GameTypeE.over) {
@@ -34,8 +34,15 @@ const getAlertFailureMessage = (gameType: GameTypeE) => {
 };
 
 export const useDiceGame = () => {
-  const { setGameResults, setGuessDirection, guessDirection, setGuessValue, guessValue } =
-    useDice();
+  const {
+    setGameResults,
+    setGuessDirection,
+    guessDirection,
+    setGuessValue,
+    guessValue,
+    disabledDirection,
+    setDisabledDirection,
+  } = useDice();
 
   const [alertType, setAlertType] = useState<AlertColor | null>(null);
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -68,6 +75,18 @@ export const useDiceGame = () => {
     setGameResults?.(result);
   }, [guessDirection, guessValue, resultValue, setGameResults]);
 
+  useEffect(() => {
+    if (guessValue === 100) {
+      setDisabledDirection(GameTypeE.over);
+      setGuessDirection(GameTypeE.under);
+    } else if (guessValue === 0) {
+      setDisabledDirection(GameTypeE.under);
+      setGuessDirection(GameTypeE.over);
+    } else {
+      setDisabledDirection(null);
+    }
+  }, [guessValue]);
+
   return {
     isRolling,
     setIsRolling,
@@ -83,5 +102,6 @@ export const useDiceGame = () => {
     handlePlay,
     onRollingStart,
     onRollingFinish,
+    disabledDirection,
   };
 };

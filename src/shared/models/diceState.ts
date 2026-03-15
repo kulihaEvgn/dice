@@ -9,6 +9,9 @@ export interface IDiceState {
   guessDirection: GameTypeE;
   setGuessDirection: (direction: GameTypeE) => void;
 
+  disabledDirection: GameTypeE | null;
+  setDisabledDirection: (direction: GameTypeE | null) => void;
+
   gameResults: IGameResult[];
   setGameResults: (result: IGameResult) => void;
 }
@@ -19,6 +22,9 @@ const diceSlice: StateCreator<IDiceState> = (set) => ({
 
   guessDirection: GameTypeE.over,
   setGuessDirection: (direction) => set({ guessDirection: direction }),
+
+  disabledDirection: null,
+  setDisabledDirection: (direction) => set({ disabledDirection: direction }),
 
   gameResults: [],
   setGameResults: (result) =>

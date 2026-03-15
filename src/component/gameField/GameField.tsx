@@ -16,6 +16,7 @@ export const GameField = () => {
     handlePlay,
     onRollingStart,
     onRollingFinish,
+    disabledDirection,
   } = useDiceGame();
 
   return (
@@ -37,6 +38,7 @@ export const GameField = () => {
             selectedGameType={guessDirection}
             setSelectedGameType={setGuessDirection}
             disabled={isRolling}
+            disabledDirection={disabledDirection}
           />
         </Flex>
 

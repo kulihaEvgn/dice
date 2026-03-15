@@ -51,7 +51,7 @@ export const Counter = ({
           defaultValue={100}
           value={value}
           spinTiming={{ duration: animationDuration, iterations: animationIterations }}
-          trend={10}
+          // trend={10}
           onAnimationsStart={onRollingStart}
           onAnimationsFinish={onRollingFinish}
         />

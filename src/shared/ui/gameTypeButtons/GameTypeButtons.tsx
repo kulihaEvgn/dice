@@ -11,12 +11,14 @@ interface IProps {
   setSelectedGameType: (selectedGameType: GameTypeE) => void;
 
   disabled?: boolean;
+  disabledDirection?: GameTypeE | null;
 }
 
 export const GameTypeButtons = ({
   selectedGameType,
   setSelectedGameType,
   disabled = false,
+  disabledDirection = null,
 }: IProps) => {
   return (
     <FormControl>
@@ -29,7 +31,13 @@ export const GameTypeButtons = ({
           <FormControlLabel
             key={value}
             value={value}
-            control={<Radio color={'secondary'} size={'medium'} disabled={disabled} />}
+            control={
+              <Radio
+                color={'secondary'}
+                size={'medium'}
+                disabled={disabled || value === disabledDirection}
+              />
+            }
             labelPlacement={'start'}
             label={<Typography>{label}</Typography>}
           />
