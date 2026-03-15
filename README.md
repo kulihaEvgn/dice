@@ -7,7 +7,7 @@ Guess **Over** or **Under** a number (0–100), roll the dice, see the result an
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)
 ![MUI](https://img.shields.io/badge/MUI-7-007fff?logo=mui)
 
-**Demo:** *https://dice-weld-pi.vercel.app/*
+**[DEMO](https://dice-weld-pi.vercel.app/)**
 
 ---
 
